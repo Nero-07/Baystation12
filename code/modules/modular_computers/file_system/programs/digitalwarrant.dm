@@ -30,6 +30,7 @@ var/warrant_uid = 0
 		data["warrantname"] = activewarrant.fields["namewarrant"]
 		data["warrantcharges"] = activewarrant.fields["charges"]
 		data["warrantauth"] = activewarrant.fields["auth"]
+		data["type"] = activewarrant.fields["arrestsearch"]
 	else
 		var/list/allwarrants = list()
 		for(var/datum/data/record/warrant/W in data_core.warrants)
@@ -37,7 +38,8 @@ var/warrant_uid = 0
 			"warrantname" = W.fields["namewarrant"],
 			"charges" = "[copytext(W.fields["charges"],1,min(length(W.fields["charges"]) + 1, 50))]...",
 			"auth" = W.fields["auth"],
-			"id" = W.warrant_id
+			"id" = W.warrant_id,
+			"arrestsearch" = W.fields["arrestsearch"]
 		)))
 		data["allwarrants"] = allwarrants
 
@@ -77,9 +79,17 @@ var/warrant_uid = 0
 	if(href_list["addwarrant"])
 		. = 1
 		var/datum/data/record/warrant/W = new()
-		W.fields["namewarrant"] = "Unknown"
-		W.fields["charges"] = "No charges present"
-		W.fields["auth"] = "Unauthorized"
+		var/temp = sanitize(input(usr, "Do you want to create a search-, or an arrest warrant?") in list("search","arrest"))
+		if(temp == "arrest")
+			W.fields["namewarrant"] = "Unknown"
+			W.fields["charges"] = "No charges present"
+			W.fields["auth"] = "Unauthorized"
+			W.fields["arrestsearch"] = "arrest"
+		if(temp == "search")
+			W.fields["namewarrant"] = "No location given"
+			W.fields["charges"] = "No reason given"
+			W.fields["auth"] = "Unauthorized"
+			W.fields["arrestsearch"] = "search"
 		activewarrant = W
 
 	if(href_list["savewarrant"])
@@ -97,7 +107,7 @@ var/warrant_uid = 0
 		var/namelist = list()
 		for(var/datum/data/record/t in data_core.general)
 			namelist += t.fields["name"]
-		var/new_name = sanitize(input("Please input name") in namelist)
+		var/new_name = sanitize(input(usr, "Please input name") in namelist)
 		if (!new_name)
 			return
 		activewarrant.fields["namewarrant"] = new_name
@@ -111,7 +121,7 @@ var/warrant_uid = 0
 
 	if(href_list["editwarrantcharges"])
 		. = 1
-		var/new_charges = sanitize(input("Please input charges") as text)
+		var/new_charges = sanitize(input("Please input charges", "Charges", activewarrant.fields["charges"]) as text)
 		if (!new_charges)
 			return
 		activewarrant.fields["charges"] = new_charges
