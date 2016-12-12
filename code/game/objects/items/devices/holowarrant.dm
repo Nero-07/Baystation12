@@ -72,6 +72,6 @@ var/activetype = null //Is this a search or arrest warrtant?
 		</BODY></HTML>
 		"}
 
-		user << browse(output, ", window=Warrant for [activename]")
+		show_browser(user, output, "window=Warrant for [activename]")
 	if(activetype == "search")
-		show_browser(user, long_text, "window=Warrant for [activename]")
+		show_browser(user, "searchtext", "window=Warrant for [activename]")
