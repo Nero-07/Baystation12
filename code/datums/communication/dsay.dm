@@ -33,8 +33,6 @@
 		receive_communication(communicator, M, "<span class='deadsay'>" + create_text_tag("dead", "DEAD:", M.client) + " [sent_message]</span>")
 
 /decl/dsay_communication/proc/can_communicate(var/client/communicator, var/message)
-	if(!istype(communicator))
-		return FALSE
 	if(communicator.mob.stat != DEAD)
 		to_chat(communicator, "<span class='warning'>You're not sufficiently dead to use DSAY!</span>")
 		return FALSE
@@ -106,8 +104,6 @@
 	..()
 
 /decl/dsay_communication/admin/can_communicate(var/client/communicator, var/message, var/decl/communication_channel/dsay)
-	if(!istype(communicator))
-		return FALSE
 	if(!communicator.holder)
 		to_chat(communicator, "<span class='warning'>You do not have sufficent permissions to use DSAY!</span>")
 		return FALSE

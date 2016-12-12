@@ -40,25 +40,23 @@
 	return ..()
 
 /obj/item/clothing/MouseDrop(var/obj/over_object)
-	if (!over_object || !(ishuman(usr) || issmall(usr)))
-		return
+	if (ishuman(usr) || issmall(usr))
+		//makes sure that the clothing is equipped so that we can't drag it into our hand from miles away.
+		if (!(src.loc == usr))
+			return
 
-	//makes sure that the clothing is equipped so that we can't drag it into our hand from miles away.
-	if (!(src.loc == usr))
-		return
+		if (( usr.restrained() ) || ( usr.stat ))
+			return
 
-	if (usr.incapacitated())
-		return
+		if (!usr.unEquip(src))
+			return
 
-	if (!usr.unEquip(src))
-		return
-
-	switch(over_object.name)
-		if("r_hand")
-			usr.put_in_r_hand(src)
-		if("l_hand")
-			usr.put_in_l_hand(src)
-	src.add_fingerprint(usr)
+		switch(over_object.name)
+			if("r_hand")
+				usr.put_in_r_hand(src)
+			if("l_hand")
+				usr.put_in_l_hand(src)
+		src.add_fingerprint(usr)
 
 /obj/item/clothing/examine(var/mob/user)
 	..(user)

@@ -250,9 +250,8 @@ proc/get_radio_key_from_channel(var/channel)
 	spawn(30) qdel(speech_bubble)
 
 	for(var/mob/M in listening)
-		if(M)
-			M << speech_bubble
-			M.hear_say(message, verb, speaking, alt_name, italics, src, speech_sound, sound_vol)
+		to_chat(M, speech_bubble)
+		M.hear_say(message, verb, speaking, alt_name, italics, src, speech_sound, sound_vol)
 
 	for(var/obj/O in listening_obj)
 		spawn(0)

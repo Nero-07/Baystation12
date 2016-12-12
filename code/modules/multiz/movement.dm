@@ -37,19 +37,10 @@
 	Move(destination)
 	return 1
 
-/mob/observer/zMove(direction)
-	var/turf/destination = (direction == UP) ? GetAbove(src) : GetBelow(src)
-	if(destination)
-		forceMove(destination)
-	else
-		to_chat(usr, "<span class='notice'>There is nothing of interest in this direction.</span>")
-
 /mob/observer/eye/zMove(direction)
-	var/turf/destination = (direction == UP) ? GetAbove(src) : GetBelow(src)
-	if(destination)
+	if(..())
+		var/turf/destination = (direction == UP) ? GetAbove(src) : GetBelow(src)
 		setLoc(destination)
-	else
-		to_chat(usr, "<span class='notice'>There is nothing of interest in this direction.</span>")
 
 /mob/proc/can_ztravel()
 	return 0

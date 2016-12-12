@@ -327,11 +327,9 @@
 				if(ispath(holder.buildmode.objholder,/turf))
 					var/turf/T = get_turf(object)
 					T.ChangeTurf(holder.buildmode.objholder)
-				else if(holder.buildmode.objholder)
+				else
 					var/obj/A = new holder.buildmode.objholder (get_turf(object))
 					A.set_dir(holder.builddir.dir)
-				else
-					to_chat(user, "<span>Select a type to construct.</span>")
 			else if(pa.Find("right"))
 				if(isobj(object))
 					qdel(object)
