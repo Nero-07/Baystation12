@@ -44,7 +44,7 @@
 /datum/job/qm
 	title = "Quartermaster"
 	department = "Cargo"
-	department_flag = CRG
+	department_flag = CIV|CRG
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -60,7 +60,7 @@
 /datum/job/cargo_tech
 	title = "Cargo Technician"
 	department = "Cargo"
-	department_flag = CRG
+	department_flag = CIV|CRG
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
@@ -73,7 +73,7 @@
 /datum/job/mining
 	title = "Shaft Miner"
 	department = "Cargo"
-	department_flag = CRG
+	department_flag = CIV
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3

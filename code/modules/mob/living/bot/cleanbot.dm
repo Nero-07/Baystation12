@@ -54,7 +54,7 @@
 //		spawn(0)
 		path = AStar(loc, target.loc, /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance, 0, 30, id = botcard)
 		if(!path)
-			visible_message("\The [src] can't reach \the [target.name] and is giving up for now.")
+			custom_emote(2, "can't reach \the [target.name] and is giving up for now.")
 			log_debug("[src] can't reach [target.name] ([target.x], [target.y])")
 			ignorelist |= weakref(target)
 			target = null
@@ -82,7 +82,7 @@
 		return
 
 	if(!screwloose && !oddbutton && prob(5))
-		visible_message("\The [src] makes an excited beeping booping sound!")
+		custom_emote(2, "makes an excited beeping booping sound!")
 
 	if(screwloose && prob(5)) // Make a mess
 		if(istype(loc, /turf/simulated))
@@ -172,7 +172,7 @@
 		return
 
 	cleaning = 1
-	visible_message("\The [src] begins to clean up \the [D]")
+	custom_emote(2, "begins to clean up \the [D]")
 	update_icons()
 	var/cleantime = istype(D, /obj/effect/decal/cleanable/dirt) ? 10 : 50
 	if(do_after(src, cleantime, progress = 0))
