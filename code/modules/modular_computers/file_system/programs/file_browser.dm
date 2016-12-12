@@ -1,5 +1,3 @@
-#define MAX_TEXTFILE_LENGTH 128000		// 512GQ file
-
 /datum/computer_file/program/filemanager
 	filename = "filemanager"
 	filedesc = "NTOS File Manager"
@@ -87,14 +85,10 @@
 			return 1
 		if(F.do_not_edit && (alert("WARNING: This file is not compatible with editor. Editing it may result in permanently corrupted formatting or damaged data consistency. Edit anyway?", "Incompatible File", "No", "Yes") == "No"))
 			return 1
-
-		var/oldtext = html_decode(F.stored_data)
-		oldtext = replacetext(oldtext, "\[editorbr\]", "\n")
-
-		var/newtext = sanitize(replacetext(input(usr, "Editing file [open_file]. You may use most tags used in paper formatting:", "Text Editor", oldtext) as message|null, "\n", "\[editorbr\]"), MAX_TEXTFILE_LENGTH)
+		// 16384 is the limit for file length in characters. Currently, papers have value of 2048 so this is 8 times as long, since we can't edit parts of the file independently.
+		var/newtext = sanitize(html_decode(input(usr, "Editing file [open_file]. You may use most tags used in paper formatting:", "Text Editor", F.stored_data) as message|null), 16384)
 		if(!newtext)
 			return
-
 		if(F)
 			var/datum/computer_file/data/backup = F.clone()
 			HDD.remove_file(F)
@@ -104,7 +98,7 @@
 			// This is mostly intended to prevent people from losing texts they spent lot of time working on due to running out of space.
 			// They will be able to copy-paste the text from error screen and store it in notepad or something.
 			if(!HDD.store_file(F))
-				error = "I/O error: Unable to overwrite file. Hard drive is probably full. You may want to backup your changes before closing this window:<br><br>[html_decode(F.stored_data)]<br><br>"
+				error = "I/O error: Unable to overwrite file. Hard drive is probably full. You may want to backup your changes before closing this window:<br><br>[F.stored_data]<br><br>"
 				HDD.store_file(backup)
 	if(href_list["PRG_printfile"])
 		. = 1
@@ -205,4 +199,5 @@
 		ui.auto_update_layout = 1
 		ui.set_initial_data(data)
 		ui.open()
-#undef MAX_TEXTFILE_LENGTH
+
+

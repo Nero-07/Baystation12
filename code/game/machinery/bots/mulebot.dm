@@ -141,11 +141,11 @@
 	unload(0)
 	switch(severity)
 		if(2)
-			wires.RandomCut()
-			wires.RandomCut()
-			wires.RandomCut()
+			BITRESET(wires, rand(0,9))
+			BITRESET(wires, rand(0,9))
+			BITRESET(wires, rand(0,9))
 		if(3)
-			wires.RandomCut()
+			BITRESET(wires, rand(0,9))
 	..()
 	return
 
@@ -154,7 +154,12 @@
 		unload(0)
 	if(prob(25))
 		src.visible_message("<span class='warning'>Something shorts out inside [src]!</span>")
-		wires.RandomPulse()
+		var/index = 1<< (rand(0,9))
+
+		if(wires & index)
+			wires &= ~index
+		else
+			wires |= index
 	..()
 
 

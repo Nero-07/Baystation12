@@ -46,10 +46,6 @@
 			species_name += "Cyborg "
 		species_name += "[species.name]"
 		msg += ", <b><font color='[species.get_flesh_colour(src)]'> \a [species_name]!</font></b>"
-	var/extra_species_text = species.get_additional_examine_text(src)
-	if(extra_species_text)
-		msg += "[extra_species_text]<br>"
-
 	msg += "<br>"
 
 	//uniform
@@ -200,23 +196,21 @@
 	if(mSmallsize in mutations)
 		msg += "[T.He] [T.is] small halfling!\n"
 
-	var/distance = 0
-	if(isghost(user) || user.stat == DEAD) // ghosts can see anything
+	var/distance = get_dist(usr,src)
+	if(isghost(usr) || usr.stat == DEAD) // ghosts can see anything
 		distance = 1
-	else
-		distance = get_dist(user,src)
 	if (src.stat)
 		msg += "<span class='warning'>[T.He] [T.is]n't responding to anything around [T.him] and seems to be asleep.</span>\n"
 		if((stat == DEAD || src.losebreath) && distance <= 3)
 			msg += "<span class='warning'>[T.He] [T.does] not appear to be breathing.</span>\n"
-		if(ishuman(user) && !user.incapacitated() && Adjacent(user))
-			user.visible_message("<b>\The [user]</b> checks \the [src]'s pulse.", "You check \the [src]'s pulse.")
-		spawn(0)
-			if(do_after(user, 15, src))
+		if(istype(usr, /mob/living/carbon/human) && !usr.stat && Adjacent(usr))
+			usr.visible_message("<b>[usr]</b> checks [src]'s pulse.", "You check [src]'s pulse.")
+		spawn(15)
+			if(distance <= 1 && usr.stat != 1)
 				if(pulse() == PULSE_NONE)
-					to_chat(user, "<span class='deadsay'>[T.He] [T.has] no pulse[src.client ? "" : " and [T.his] soul has departed"]...</span>")
+					to_chat(usr, "<span class='deadsay'>[T.He] [T.has] no pulse[src.client ? "" : " and [T.his] soul has departed"]...</span>")
 				else
-					to_chat(user, "<span class='deadsay'>[T.He] [T.has] a pulse!</span>")
+					to_chat(usr, "<span class='deadsay'>[T.He] [T.has] a pulse!</span>")
 
 	if(fire_stacks)
 		msg += "[T.He] [T.is] covered in some liquid.\n"
@@ -228,7 +222,7 @@
 	if(nutrition < 100)
 		msg += "[T.He] [T.is] severely malnourished.\n"
 	else if(nutrition >= 500)
-		/*if(user.nutrition < 100)
+		/*if(usr.nutrition < 100)
 			msg += "[T.He] [T.is] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
 		else*/
 		msg += "[T.He] [T.is] quite chubby.\n"
@@ -299,7 +293,7 @@
 	if(digitalcamo)
 		msg += "[T.He] [T.is] repulsively uncanny!\n"
 
-	if(hasHUD(user,"security"))
+	if(hasHUD(usr,"security"))
 		var/perpname = "wot"
 		var/criminal = "None"
 
@@ -322,7 +316,7 @@
 			msg += "<span class = 'deptradio'>Criminal status:</span> <a href='?src=\ref[src];criminal=1'>\[[criminal]\]</a>\n"
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=\ref[src];secrecord=`'>\[View\]</a>  <a href='?src=\ref[src];secrecordadd=`'>\[Add comment\]</a>\n"
 
-	if(hasHUD(user,"medical"))
+	if(hasHUD(usr,"medical"))
 		var/perpname = "wot"
 		var/medical = "None"
 

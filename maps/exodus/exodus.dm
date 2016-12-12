@@ -1,7 +1,6 @@
 #if !defined(USING_MAP_DATUM)
 
 	#include "exodus_areas.dm"
-	#include "exodus_elevator.dm"
 	#include "exodus_holodecks.dm"
 	#include "exodus_shuttles.dm"
 
@@ -11,7 +10,6 @@
 	#include "../shared/exodus_torch_areas.dm"
 	#include "../shared/exodus_torch_zas_tests.dm"
 
-	#include "exodus-0.dmm"
 	#include "exodus-1.dmm"
 	#include "exodus-2.dmm"
 	#include "exodus-3.dmm"

@@ -24,10 +24,7 @@
 
 /obj/machinery/camera/network/ert
 	network = list(NETWORK_ERT)
-
-/obj/machinery/camera/network/maintenance
-	network = list(NETWORK_MAINTENANCE)
-
+	
 /obj/machinery/camera/network/mercenary
 	network = list(NETWORK_MERCENARY)
 

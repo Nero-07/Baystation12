@@ -17,6 +17,9 @@
 
 	var/datum/language/speaking = parse_language(message)
 
+	if(speaking)
+		message = copytext(message, 2+length(speaking.key))
+
 	message = trim(message)
 
 	if(!message || stat)

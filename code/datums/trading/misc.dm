@@ -72,7 +72,7 @@
 
 /datum/trader/ship/prank_shop
 	name = "Prank Shop Owner"
-	name_language = LANGUAGE_ROOTLOCAL
+	name_language = LANGUAGE_ROOTSPEAK
 	origin = "Prank Shop"
 	compliment_increase = 0
 	insult_drop = 0

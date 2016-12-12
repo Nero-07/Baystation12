@@ -53,9 +53,7 @@ var/list/name_to_material
 /proc/get_material_by_name(name)
 	if(!name_to_material)
 		populate_material_list()
-	. = name_to_material[name]
-	if(!.)
-		log_error("Unable to acquire material by name '[name]'")
+	return name_to_material[name]
 
 /proc/material_display_name(name)
 	var/material/material = get_material_by_name(name)
