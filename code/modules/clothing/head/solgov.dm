@@ -143,6 +143,16 @@
 	desc = "A beret in Sol Central Government colors. For peacekeepers that are more inclined towards style than safety."
 	icon_state = "beret_lightblue"
 
+/obj/item/clothing/head/beret/sol/marines
+	name = "marine beret"
+	desc = "A blue beret denoting service in the Sol Marines. For personnel that are more inclined towards style than safety."
+	icon_state = "beret_blue"
+
+/obj/item/clothing/head/beret/sol/fleet
+	name = "fleet beret"
+	desc = "A black beret denoting service in the Sol Central Government Fleet. For personnel that are more inclined towards style than safety."
+	icon_state = "beret_black"
+
 /obj/item/clothing/head/beret/sol/homeguard
 	name = "home guard beret"
 	desc = "A red beret denoting service in the Sol Home Guard. For personnel that are more inclined towards style than safety."

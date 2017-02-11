@@ -23,6 +23,8 @@
 	berets["orbital assault beret"] = /obj/item/clothing/head/beret/sol/orbital
 	berets["government research beret"] = /obj/item/clothing/head/beret/sol/research
 	berets["health service beret"] = /obj/item/clothing/head/beret/sol/health
+	berets["marine beret"] = /obj/item/clothing/head/beret/sol/marines
+	berets["fleet beret"] = /obj/item/clothing/head/beret/sol/fleet
 	gear_tweaks += new/datum/gear_tweak/path(berets)
 
 /datum/gear/head/whitentberet
